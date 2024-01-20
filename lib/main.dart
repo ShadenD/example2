@@ -29,6 +29,16 @@ class HOME extends StatefulWidget {
 class _HOMEState extends State<HOME> {
   int selectedindex = 0;
   GlobalKey<ScaffoldState> scaffold = GlobalKey();
+  List<Widget> listwidget = [
+    const Text(
+      "I'm in the Home Page",
+      style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+    ),
+    const Text(
+      "I'm in the Setting Page",
+      style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+    )
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +56,8 @@ class _HOMEState extends State<HOME> {
             },
             currentIndex: selectedindex,
             backgroundColor: Colors.blue,
-            selectedItemColor: Colors.white,
-            unselectedItemColor: Colors.black,
+            selectedItemColor: Colors.black,
+            unselectedItemColor: Colors.white,
             selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w900),
             items: const [
               BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
@@ -60,11 +70,11 @@ class _HOMEState extends State<HOME> {
           bottom: const TabBar(tabs: [
             Tab(
               icon: Icon(Icons.laptop),
-              child: Text("Laptop"),
+              child: Text("Icon"),
             ),
             Tab(
               icon: Icon(Icons.mobile_friendly),
-              child: Text("Mobile"),
+              child: Text("PageView"),
             ),
             Tab(
               icon: Icon(Icons.computer),
@@ -126,19 +136,34 @@ class _HOMEState extends State<HOME> {
                 Container(
                   decoration:
                       BoxDecoration(borderRadius: BorderRadius.circular(50)),
-                  height: 50,
-                  width: 50,
+                  height: 300,
+                  width: 300,
                   child: const Image(
                     image: AssetImage("assets/images/account.jpg"),
                   ),
                 ),
-                const Text("My Mobile"),
+                SizedBox(
+                  height: 500,
+                  width: 500,
+                  child: PageView(
+                    children: [
+                      Image.asset(
+                        "assets/images/phone1.jpeg",
+                        fit: BoxFit.cover,
+                      ),
+                      Image.asset(
+                        "assets/images/phone2.jpeg",
+                        fit: BoxFit.cover,
+                      ),
+                      Image.asset(
+                        "assets/images/phone3.jpeg",
+                        fit: BoxFit.cover,
+                      ),
+                    ],
+                  ),
+                ),
                 const Text("My PC"),
               ]),
-            ),
-            const SizedBox(
-              height: 20,
-              width: 20,
             ),
             Stack(
               alignment: Alignment.bottomCenter,
@@ -161,9 +186,48 @@ class _HOMEState extends State<HOME> {
                 const Positioned(top: 0, child: Text("shaden"))
               ],
             ),
+            const SizedBox(
+              child: Column(
+                children: [
+                  CustomeListTitle(
+                    name: "shaden",
+                    email: "shaden@outlook.com",
+                    date: "12.10.2000",
+                    //imagename:'assets/images/phone1.jpeg',
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 50,
+            ),
+            listwidget.elementAt(selectedindex),
           ]),
         ),
       ),
     ));
+  }
+}
+
+class CustomeListTitle extends StatelessWidget {
+  final String name;
+  final String email;
+  final String date;
+  const CustomeListTitle({
+    super.key,
+    required this.name,
+    required this.email,
+    required this.date,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+     child: ListTile(
+        title: Text(name),
+        subtitle: Text(email),
+        trailing: Text(date),
+      ),
+    );
   }
 }
